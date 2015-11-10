@@ -1,0 +1,48 @@
+{
+  "name": "joumae-resources",
+  "version": "0.0.1",
+  "location": "https://github.com/crowdworks/joumae-resources",
+  "author": "",
+  "description": "",
+  "resources": {
+    "cloudFormation": {
+      "LambdaIamPolicyDocumentStatements": [
+        {
+           "Effect": "Allow",
+           "Action": [ "*" ],
+           "Resource": {
+             "Fn::Join": [
+               ":",
+               [ "arn:aws:dynamodb", { "Ref": "AWS::Region" }, "*", { "Fn::Join": ["-", ["table/", { "Ref": "aaProjectName" }, { "Ref": "aaDataModelStage" }, "resources"]] } ]
+             ]
+           }
+         }
+      ],
+      "ApiGatewayIamPolicyDocumentStatements": [],
+      "Resources": {
+        "ResourcesDynamoDBTable": {
+          "Type" : "AWS::DynamoDB::Table",
+          "Properties": {
+            "AttributeDefinitions": [
+              {
+                "AttributeName": "name",
+                "AttributeType": "S"
+              }
+            ],
+            "KeySchema" : [
+              {
+                "AttributeName": "name",
+                "KeyType": "HASH"
+              }
+            ],
+            "ProvisionedThroughput" : {
+              "ReadCapacityUnits":  { "Ref" : "aaDefaultDynamoRWThroughput" },
+              "WriteCapacityUnits": { "Ref" : "aaDefaultDynamoRWThroughput" }
+            },
+            "TableName": { "Fn::Join": ["-", [{ "Ref": "aaProjectName" }, { "Ref": "aaDataModelStage" }, "resources"]] }
+          }
+        }
+      }
+    }
+  }
+}
