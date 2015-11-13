@@ -1,6 +1,6 @@
 {
     "name": "joumae-resources",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "The joumae resources module",
     "author": "Yusuke Kuoka <yusuke.kuoka@crowdworks.co.jp>",
     "repository": {
